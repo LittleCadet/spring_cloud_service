@@ -1,0 +1,56 @@
+#server.port=8081
+## 应用名
+#spring.application.name=data-center
+#
+##以下启动时使用的配置，用于获取配置中心内容
+##配置中心的server名称对应配置中心上配置的spring.application.name
+##spring.cloud.config.name=${spring.application.name}
+## 发布环境使用 /home/log
+#application.log.folder=/home/logs
+#
+## 注册中心地址
+#eureka.client.serviceUrl.defaultZone=${ewt360.eureka.client.serviceUrl:http://10.0.11.84:8762/eureka/}
+#
+#eureka.instance.prefer-ip-address=true
+#
+#eureka.instance.lease-expiration-duration-in-seconds=15
+#
+#eureka.instance.lease-renewal-interval-in-seconds=5
+#
+#eureka.client.registryFetchIntervalSeconds=5
+#eureka.client.fetchRegistry=true
+#
+#feign.hystrix.enabled=false
+#ribbon.ReadTimeout=3000
+#ribbon.ConnectTimeout=1000
+
+server:
+  port: 8081
+spring:
+  application:
+    name: provider-service
+application:
+  log:
+    folder: /home/logs
+eureka:
+  client:
+    fetchRegistry: true
+    #向注册中心拉取服务列表频率
+    registryFetchIntervalSeconds: 5
+    service-url:
+      defaultZone: http://10.0.11.84:8762/eureka/
+  instance:
+    # 使用ip注册到注册中心
+    prefer-ip-address: true
+    #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除
+    lease-expiration-duration-in-seconds: 15
+    #服务刷新时间配置，每隔这个时间会主动心跳一次
+    lease-renewal-interval-in-seconds: 5
+
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  ReadTImeout: 3000
+  ConnectTimeout: 1000
+
